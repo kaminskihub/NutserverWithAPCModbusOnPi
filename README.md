@@ -82,9 +82,13 @@ something is wrong. And you will not have USB Modbus Support.
 You need to see the following line:
 checking for modbus_new_rtu_usb... yes
 
-If there are errors you might need to run the next command 2x.
+Go back to libmodbus and find the problem.
+
 ```
 sudo make install
+```
+If there are errors you might need to run the make command a secound time.
+```
 sudo make install
 ```
 
