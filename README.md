@@ -6,25 +6,25 @@ I was truggling with this for 8 hours last week, so I decided to make a step by 
 install clean Raspberry Pi OS 64bit on a SD card
 
 Get ready to compile
-
+...
 sudo apt install autoconf 
 sudo apt install libtool
 sudo apt-get install libusb-1.0-0-dev
-
+...
 make sure you have uncommented "deb-src" lines to match the "deb" lines in /etc/apt/sources*
+...
 sudo nano /etc/apt/sources.list
-
 
 sudo apt update
 sudo apt upgrade
 sudo apt-get build-dep nut
-
+...
 
 
 At first we need to a custom libmodbus version with USB support
 We can find it here
 https://github.com/networkupstools/libmodbus/tree/rtu_usb
-
+...
 cd ~
 mkdir git
 cd git
@@ -33,7 +33,7 @@ cd libmodbus
 ./autogen.sh
 ./configure --with-libusb --enable-static --disable-shared --prefix=/usr/local
 sudo make install
-
+...
 
 next we need to download nut repository and compile nut
 cd ~
