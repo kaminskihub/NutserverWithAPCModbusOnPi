@@ -7,9 +7,12 @@ install clean Raspberry Pi OS 64bit on a SD card
 
 Get ready to compile
 ```
-sudo apt install autoconf 
-sudo apt install libtool
-sudo apt-get install libusb-1.0-0-dev
+sudo apt update
+sudo apt upgrade
+
+sudo apt install nut
+sudo apt remove nut
+
 ```
 make sure you have uncommented "deb-src" lines to match the "deb" lines in /etc/apt/sources*
 ```
@@ -18,7 +21,10 @@ sudo nano /etc/apt/sources.list
 sudo apt update
 sudo apt upgrade
 sudo apt-get build-dep nut
+
 sudo apt remove libmodbus5
+sudo apt remove libmodbus-dev
+
 sudo apt install libgpiod-dev
 
 ```
@@ -35,7 +41,7 @@ cd git
 git clone -b rtu_usb https://github.com/EchterAgo/libmodbus.git
 cd libmodbus
 ./autogen.sh
-./configure --with-libusb --prefix=/usr/local
+./configure --with-libusb --enable-static --disable-shared --prefix=/usr/local
 sudo make install
 ```
 
@@ -45,8 +51,6 @@ cd ~
 cd git
 git clone https://github.com/networkupstools/nut
 cd nut
-sudo apt update
-sudo apt upgrade
 ./autogen.sh
 ```
 
@@ -78,6 +82,40 @@ something is wrong. And you will not have USB Modbus Support.
 You need to see the following line:
 checking for modbus_new_rtu_usb... yes
 
+If there are errors you might need to run the next command 2x.
 ```
 sudo make install
+sudo make install
+```
+
+# Configuration
+```
+sudo nano /etc/nut/nut.conf
+mode=netserver
+```
+```
+sudo nano /etc/nut/ups.conf
+[apcmodbus]
+  driver = apc_modbus
+  port = auto
+  desc = "APC Modbus"
+  vendorid = "051D"
+  productid = "0003"
+  serial = "ASxxxxxxxxxx"
+```
+
+```
+sudo nano /etc/nut/upsd.conf
+
+LISTEN 127.0.0.1 3493
+```
+```
+sudo systemctl restart nut-server
+sudo nut-scanner
+sudo systemctl 
+sudo service nut-server restart
+sudo service nut-client restart
+sudo systemctl restart nut-monitor
+sudo upsdrvctl stop
+sudo upsdrvctl start
 ```
