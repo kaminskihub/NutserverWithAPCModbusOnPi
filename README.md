@@ -9,7 +9,9 @@ Get ready to compile
 ```
 sudo apt update
 sudo apt upgrade
-
+```
+install and remove nut, to get the folder structure, users, etc
+```
 sudo apt install nut
 sudo apt remove nut
 
