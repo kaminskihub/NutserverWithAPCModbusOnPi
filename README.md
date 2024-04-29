@@ -29,7 +29,7 @@ sudo apt install libgpiod-dev
 
 ```
 
-
+# Libmodbus with USB Support
 At first we need to a custom libmodbus version with USB support
 We can find it here
 https://github.com/networkupstools/libmodbus/tree/rtu_usb
