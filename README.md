@@ -37,14 +37,15 @@ https://github.com/networkupstools/libmodbus/tree/rtu_usb
 cd ~
 mkdir git
 cd git
-#git clone -b rtu_usb https://github.com/networkupstools/libmodbus.git
-git clone -b rtu_usb https://github.com/EchterAgo/libmodbus.git
+git clone -b rtu_usb https://github.com/networkupstools/libmodbus.git
 cd libmodbus
 ./autogen.sh
 ./configure --with-libusb --enable-static --disable-shared --prefix=/usr/local
 sudo make install
 ```
 
+
+# NUt Server with custom apc_modbus
 next we need to download nut repository and compile nut
 ```
 cd ~
@@ -92,7 +93,7 @@ If there are errors you might need to run the make command a secound time.
 sudo make install
 ```
 
-# Configuration
+# NUT Configuration
 ```
 sudo nano /etc/nut/nut.conf
 mode=netserver
