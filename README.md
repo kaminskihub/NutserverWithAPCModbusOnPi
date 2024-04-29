@@ -1,4 +1,4 @@
-# NutserverWithAPCModbusOnPi
+# Nutserver With USB APCModbus On a PI5
 Step by Step install Nut Server with APC USB Modbus Support on a Pi 5
 
 I was truggling with this for 8 hours last week, so I decided to make a step by step guide
@@ -18,6 +18,9 @@ sudo nano /etc/apt/sources.list
 sudo apt update
 sudo apt upgrade
 sudo apt-get build-dep nut
+sudo apt remove libmodbus5
+sudo apt install libgpiod-dev
+
 ```
 
 
@@ -28,10 +31,11 @@ https://github.com/networkupstools/libmodbus/tree/rtu_usb
 cd ~
 mkdir git
 cd git
-git clone -b rtu_usb https://github.com/networkupstools/libmodbus.git
+#git clone -b rtu_usb https://github.com/networkupstools/libmodbus.git
+git clone -b rtu_usb https://github.com/EchterAgo/libmodbus.git
 cd libmodbus
 ./autogen.sh
-./configure --with-libusb --enable-static --disable-shared --prefix=/usr/local
+./configure --with-libusb --prefix=/usr/local
 sudo make install
 ```
 
@@ -41,6 +45,8 @@ cd ~
 cd git
 git clone https://github.com/networkupstools/nut
 cd nut
+sudo apt update
+sudo apt upgrade
 ./autogen.sh
 ```
 
@@ -63,15 +69,15 @@ Run the next monster command:
  --with-systemdsystemunitdir=/lib/systemd/system
 ```
 if your log contains this
-
+```
 checking for modbus_set_response_timeout... yes
 checking for modbus_new_rtu_usb... no
 configure: WARNING: Both --with-modbus and --with-usb were requested, and a libmodbus was found, but it seems to not support USB. You may require a custom build per https://github.com/networkupstools/nut/wiki/APC-UPS-with-Modbus-protocol
-
-something is wrong.
+```
+something is wrong. And you will not have USB Modbus Support.
 You need to see the following line:
 checking for modbus_new_rtu_usb... yes
 
-
-
-
+```
+sudo make install
+```
